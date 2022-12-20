@@ -1,0 +1,37 @@
+
+version: 2
+
+models:
+  - name: extract_string_from_desc
+    description: "find only technicien offers"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+      - name: active
+        tests:
+          - accepted_values:
+              values: ['True', 'False']
+      - name: source
+        tests:
+          - accepted_values:
+              values: ['wizbii', 'talent']
+              config:
+                severity: warn
+                #error_if: ">1000"
+                #warn_if: ">10"
+                store_failures: true
+      - name: url
+        tests:
+          - custom_not_null
+
+  - name: my_value_counts
+    description: "Count technicien offers by source"
+    columns:
+      - name: source
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
